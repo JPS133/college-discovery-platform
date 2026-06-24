@@ -5,7 +5,7 @@ import UserInfo from "@/components/UserInfo";
 import Link from "next/link";
 
 async function getColleges(search = "", location = "") {
-  let url = "http://localhost:3000/api/colleges?";
+  let url = "/api/colleges?";
 
   if (search) {
     url += `search=${search}&`;
