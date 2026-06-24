@@ -3,24 +3,7 @@ import SearchBar from "@/components/SearchBar";
 import LocationFilter from "@/components/LocationFilter";
 import UserInfo from "@/components/UserInfo";
 import Link from "next/link";
-
-async function getColleges(search = "", location = "") {
-  let url = "/api/colleges?";
-
-  if (search) {
-    url += `search=${search}&`;
-  }
-
-  if (location) {
-    url += `location=${location}`;
-  }
-
-  const res = await fetch(url, {
-    cache: "no-store",
-  });
-
-  return res.json();
-}
+import { prisma } from "@/lib/prisma";
 
 export default async function Home({
   searchParams,
@@ -32,10 +15,22 @@ export default async function Home({
 }) {
   const params = await searchParams;
 
-  const data = await getColleges(
-    params.search || "",
-    params.location || ""
-  );
+  const colleges = await prisma.college.findMany({
+    where: {
+      ...(params.search
+        ? {
+            name: {
+              contains: params.search,
+            },
+          }
+        : {}),
+      ...(params.location
+        ? {
+            location: params.location,
+          }
+        : {}),
+    },
+  });
 
   return (
     <main className="max-w-7xl mx-auto p-6">
@@ -45,12 +40,14 @@ export default async function Home({
 
       <UserInfo />
 
-      <Link
-  href="/saved"
-  className="bg-green-600 text-white px-4 py-2 rounded"
->
-  My Saved Colleges
-</Link>
+      <div className="flex gap-4 mb-6">
+        <Link
+          href="/saved"
+          className="bg-green-600 text-white px-4 py-2 rounded"
+        >
+          My Saved Colleges
+        </Link>
+      </div>
 
       <div className="flex gap-4 mb-6">
         <SearchBar />
@@ -58,7 +55,7 @@ export default async function Home({
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
-        {data.colleges.map((college: any) => (
+        {colleges.map((college) => (
           <CollegeCard
             key={college.id}
             college={college}
