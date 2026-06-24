@@ -1,36 +1,243 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 College Discovery Platform
 
-## Getting Started
+A full-stack College Discovery Platform built using Next.js, Prisma, NextAuth, and PostgreSQL. Students can browse colleges, search and filter them, view detailed information, create accounts, log in, and save their favorite colleges.
 
-First, run the development server:
+## 🚀 Live Demo
+
+https://college-discovery-platform-tau-olive.vercel.app
+
+## 📌 Features
+
+### Authentication
+- User Signup
+- User Login
+- Secure Password Hashing using bcrypt
+- Session Management with NextAuth
+
+### College Discovery
+- Browse Colleges
+- Search Colleges by Name
+- Filter Colleges by Location
+- View Detailed College Information
+
+### Saved Colleges
+- Save Favorite Colleges
+- View Saved Colleges
+- Prevent Duplicate Saves using Prisma Upsert
+
+### Responsive UI
+- Modern Dark Theme
+- Responsive Design
+- Clean Navigation Bar
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+
+### Backend
+- Next.js API Routes
+- NextAuth
+
+### Database
+- PostgreSQL
+- Prisma ORM
+
+### Deployment
+- Vercel
+
+---
+
+## 📂 Project Structure
+
+```bash
+src/
+│
+├── app/
+│   ├── api/
+│   │   ├── auth/
+│   │   ├── colleges/
+│   │   ├── save-college/
+│   │   └── signup/
+│   │
+│   ├── colleges/[id]/
+│   ├── login/
+│   ├── signup/
+│   └── saved/
+│
+├── components/
+│   ├── CollegeCard.tsx
+│   ├── Navbar.tsx
+│   ├── SearchBar.tsx
+│   ├── LocationFilter.tsx
+│   ├── SaveCollegeButton.tsx
+│   └── UserInfo.tsx
+│
+├── lib/
+│   ├── prisma.ts
+│   └── auth.ts
+│
+└── types/
+```
+
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/JPS133/college-discovery-platform.git
+
+cd college-discovery-platform
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Configure Environment Variables
+
+Create a `.env` file:
+
+```env
+DATABASE_URL="YOUR_DATABASE_URL"
+
+NEXTAUTH_SECRET="YOUR_SECRET"
+
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+### Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+### Run Database Migration
+
+```bash
+npx prisma migrate dev
+```
+
+### Seed Database
+
+```bash
+npx prisma db seed
+```
+
+### Start Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🗄 Database Schema
 
-To learn more about Next.js, take a look at the following resources:
+### User
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Field | Type |
+|---------|---------|
+| id | String |
+| name | String |
+| email | String |
+| password | String |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### College
 
-## Deploy on Vercel
+| Field | Type |
+|---------|---------|
+| id | String |
+| name | String |
+| location | String |
+| fees | Int |
+| rating | Float |
+| placementRate | Int |
+| description | String |
+| courses | String[] |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### SavedCollege
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Field | Type |
+|---------|---------|
+| id | String |
+| userId | String |
+| collegeId | String |
+
+---
+
+## 🔍 Key Functionalities
+
+### Search Colleges
+
+Users can search colleges by name.
+
+### Location Filter
+
+Users can filter colleges by city.
+
+### Save Colleges
+
+Authenticated users can save colleges to their personal dashboard.
+
+### Authentication
+
+- Signup with Email and Password
+- Login using NextAuth Credentials Provider
+- Secure Password Storage using bcrypt
+
+---
+
+## 📸 Screenshots
+
+### Homepage
+(Add screenshot here)
+
+### College Details Page
+(Add screenshot here)
+
+### Saved Colleges Page
+(Add screenshot here)
+
+---
+
+## 🎯 Future Improvements
+
+- College Comparison Feature
+- College Reviews & Ratings
+- Pagination
+- Advanced Filters
+- College Images
+- User Profiles
+- AI-Based College Recommendations
+
+---
+
+## 👨‍💻 Author
+
+**Jai Pratap Singh**
+
+B.Tech Computer Science Engineering
+
+SRMCEM
+
+GitHub: https://github.com/JPS133
+
+---
+
+## 📄 License
+
+This project is developed for educational and internship evaluation purposes.
