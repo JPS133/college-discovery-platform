@@ -1,38 +1,71 @@
 "use client";
 
+import { useState } from "react";
+
 export default function SaveCollegeButton({
   collegeId,
 }: {
   collegeId: string;
 }) {
-  async function handleSave() {
-    const res = await fetch(
-      "/api/save-college",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          collegeId,
-        }),
-      }
-    );
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-    if (res.ok) {
-      alert("College Saved!");
-    } else {
-      alert("Save failed");
+  async function handleSave() {
+    try {
+      setLoading(true);
+      setMessage("");
+
+      const res = await fetch(
+        "/api/save-college",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            collegeId,
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setMessage(
+          "✅ College saved successfully!"
+        );
+      } else {
+        setMessage(
+          data.error || "⚠️ College already saved"
+        );
+      }
+    } catch (error) {
+      setMessage(
+        "❌ Something went wrong"
+      );
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <button
-      onClick={handleSave}
-      className="bg-green-600 text-white px-4 py-2 rounded mt-4"
-    >
-      Save College
-    </button>
+    <div className="mt-6">
+      <button
+        onClick={handleSave}
+        disabled={loading}
+        className="bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-6 py-3 rounded-lg transition"
+      >
+        {loading
+          ? "Saving..."
+          : "💾 Save College"}
+      </button>
+
+      {message && (
+        <p className="mt-3 text-sm text-green-400">
+          {message}
+        </p>
+      )}
+    </div>
   );
 }

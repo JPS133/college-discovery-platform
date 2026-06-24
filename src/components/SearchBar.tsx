@@ -12,18 +12,18 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="flex gap-2 mb-8">
+    <div className="flex gap-2 mb-8 w-full">
       <input
         type="text"
         placeholder="Search colleges..."
-        className="border rounded px-4 py-2 flex-1 text-black"
+        className="bg-white text-black border border-gray-300 rounded-lg px-4 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
       <button
         onClick={handleSearch}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition"
       >
         Search
       </button>

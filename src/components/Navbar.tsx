@@ -2,23 +2,42 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="border-b bg-white">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between">
-        <Link href="/">
-          <h1 className="font-bold text-xl">
-            College Discovery
-          </h1>
+    <nav className="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
+      <Link
+        href="/"
+        className="text-2xl font-bold text-white hover:text-blue-400 transition"
+      >
+        🎓 College Discovery Platform
+      </Link>
+
+      <div className="flex items-center gap-6 font-medium">
+        <Link
+          href="/"
+          className="text-gray-300 hover:text-blue-400 transition"
+        >
+          Home
         </Link>
 
-        <div className="flex gap-4">
-          <Link href="/">
-            Home
-          </Link>
+        <Link
+          href="/saved"
+          className="text-gray-300 hover:text-blue-400 transition"
+        >
+          Saved Colleges
+        </Link>
 
-          <Link href="/saved">
-            Saved Colleges
-          </Link>
-        </div>
+        <Link
+          href="/login"
+          className="text-gray-300 hover:text-blue-400 transition"
+        >
+          Login
+        </Link>
+
+        <Link
+          href="/signup"
+          className="text-gray-300 hover:text-blue-400 transition"
+        >
+          Signup
+        </Link>
       </div>
     </nav>
   );
